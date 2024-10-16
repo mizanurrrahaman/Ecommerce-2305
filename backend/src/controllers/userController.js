@@ -3,6 +3,7 @@ import User from '../models/userModel.js'
 import sendVerificationEmail from '../utils/sendUserVerficationMail.js'
 import verifyEmailTemplate from '../templates/verifyEmailTemplate.js'
 import { cloudinaryUpload } from '../services/cloudinary.js'
+//import { cloudinaryUpload } from '../services/cloudinary.js'
 
 // @desc get all users
 // route GET /api/v1/users
@@ -48,6 +49,60 @@ const createUser = async (req, res) => {
 // @desc create a user
 // route POST /api/v1/users
 const updateUser = async (req, res) => {
+ try{
+   if(req.file){
+      const { path } = req.file
+      const user = await User.findById(req.user._id)
+      if(user){
+        const result = await cloudinaryUpload(path, user.fullName, "profileImage")
+        user.profileImage = result.optimizeUrl
+        user.publicId = result.uploadResult.publicId
+        await user.save()
+        res.json(apiResponse(200, "avatar uploaded", {user}))
+      }
+   }
+ } catch(error){
+   console.log(error)
+ }
+ //res.json("Please Upload Your Image")
+}
+
+//logout opcation
+
+const logout = async (req, res) =>{
+  try{
+    const user = await User.findById(req.user.id)
+    user.refreshToken = null
+    await user.save()
+    return res.json(apiResponse(200, "logout successfully done"))
+  } catch(error){
+    console.log(error)
+  }
+}
+
+
+
+
+
+export { createUser, getUsers, updateUser, logout }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/*
+
+const updateUser = async (req, res) => {
   try {
     // check file uploaded or not
     if (req.file) {
@@ -76,5 +131,4 @@ const updateUser = async (req, res) => {
       .json(apiResponse(500, 'internal server error', { error: error.message }))
   }
 }
-
-export { createUser, getUsers, updateUser }
+*/}

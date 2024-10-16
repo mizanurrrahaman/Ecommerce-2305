@@ -1,3 +1,168 @@
+import { v2 as cloudinary } from 'cloudinary';
+import { unlinkSync } from 'fs'
+
+
+    // Configuration
+    cloudinary.config({ 
+        cloud_name: 'drzq2pqqn', 
+        api_key: '364148855152787', 
+        api_secret: 'CBFCJO4RC3ySOwE2YVWJiSRUpCo' // Click 'View API Keys' above to copy your API secret
+    });
+
+   export  const cloudinaryUpload = async (path, public_id, folder) =>{
+        let uploadResult;
+        try{
+          // Upload an image
+           uploadResult = await cloudinary.uploader
+           .upload( path, {
+                   public_id,
+                   folder
+               });
+           unlinkSync(path)
+        } catch(error) {
+           unlinkSync(path)
+             console.error("Upload error", error)
+             return {error: "Upload failed", uploadResult: null}
+         };
+      
+      
+      // Optimize delivery by resizing and applying auto-format and auto-quality
+      const optimizeUrl = cloudinary.url( uploadResult.public_id, {
+          fetch_format: 'auto',
+          quality: 'auto',
+      });
+      
+      
+      // Transform the image: auto-crop to square aspect_ratio
+      const autoCropUrl = cloudinary.url( uploadResult.public_id, {
+          crop: 'auto',
+          gravity: 'auto',
+          width: 500,
+          height: 500,
+      });
+      
+      return { optimizeUrl, autoCropUrl, uploadResult }   
+
+    }  
+    
+
+
+
+
+
+
+//drzq2pqqn
+
+//124451856161656
+
+//Ap4OXXTf9z2V2sB3R5WkWiBPKHc
+
+
+
+
+{/*
+
+  //kn0RIW7F0lyykeEMtHXCG3OJvgs
+
+  
+import { unlinkSync } from 'fs'
+import { v2 as cloudinary } from 'cloudinary'
+import apiResponse from 'quick-response'
+
+// Configuration for cloudinary
+cloudinary.config({ 
+  cloud_name: 'drzq2pqqn', 
+  api_key: '124451856161656', 
+  api_secret: 'kn0RIW7F0lyykeEMtHXCG3OJvgs' // Click 'View API Keys' above to copy your API secret
+});
+
+export const cloudinaryUpload = async (filePath, public_id, folder) => {
+  let uploadResult
+
+  try {
+    // Upload an image
+    uploadResult = await cloudinary.uploader.upload(filePath, {
+      public_id,
+      folder,
+    })
+
+    unlinkSync(filePath)
+    
+  } catch (error) {
+    unlinkSync(filePath)
+    return res
+      .status(400)
+      .json(apiResponse(400, 'upload failed', { uploadResult: null }))
+  }
+
+  // Optimize delivery by resizing and applying auto-format and auto-quality
+  const optimizeUrl = cloudinary.url(uploadResult.public_id, {
+    fetch_format: 'auto',
+    quality: 'auto',
+  })
+
+  // Transform the image: auto-crop to square aspect_ratio
+  const autoCropUrl = cloudinary.url(uploadResult.public_id, {
+    crop: 'auto',
+    gravity: 'auto',
+    width: 500,
+    height: 500,
+  })
+
+  return { uploadResult, optimizeUrl, autoCropUrl }
+}
+
+  
+  
+  import { unlinkSync } from 'fs'
+  import { v2 as cloudinary } from 'cloudinary'
+  import apiResponse from 'quick-response'
+  
+  // Configuration for cloudinary
+  cloudinary.config({ 
+    cloud_name: 'drzq2pqqn', 
+    api_key: '124451856161656', 
+    api_secret: 'kn0RIW7F0lyykeEMtHXCG3OJvgs' // Click 'View API Keys' above to copy your API secret
+  });
+  
+  export const cloudinaryUpload = async (filePath, public_id, folder) => {
+    let uploadResult
+  
+    try {
+      // Upload an image
+      uploadResult = await cloudinary.uploader.upload(filePath, {
+        public_id,
+        folder,
+      })
+  
+      unlinkSync(filePath)
+      
+    } catch (error) {
+      unlinkSync(filePath)
+      return res
+        .status(400)
+        .json(apiResponse(400, 'upload failed', { uploadResult: null }))
+    }
+  
+    // Optimize delivery by resizing and applying auto-format and auto-quality
+    const optimizeUrl = cloudinary.url(uploadResult.public_id, {
+      fetch_format: 'auto',
+      quality: 'auto',
+    })
+  
+    // Transform the image: auto-crop to square aspect_ratio
+    const autoCropUrl = cloudinary.url(uploadResult.public_id, {
+      crop: 'auto',
+      gravity: 'auto',
+      width: 500,
+      height: 500,
+    })
+  
+    return { uploadResult, optimizeUrl, autoCropUrl }
+  }
+
+
+
 
   import { unlinkSync } from 'fs'
   import { v2 as cloudinary } from 'cloudinary'
@@ -45,9 +210,6 @@
   
     return { uploadResult, optimizeUrl, autoCropUrl }
   }
-  
-  
-  //kn0RIW7F0lyykeEMtHXCG3OJvgs
 
 
 
@@ -57,7 +219,8 @@
 
 
 
-{/*
+
+
 
 
 

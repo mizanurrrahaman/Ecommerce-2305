@@ -7,7 +7,8 @@ export const createUserVaidation = (req, res, next) => {
     req.body.hasOwnProperty('fullName') &&
     req.body.hasOwnProperty('phoneNumber') &&
     req.body.hasOwnProperty('email') &&
-    req.body.hasOwnProperty('password')
+    req.body.hasOwnProperty('password') &&
+    req.body.hasOwnProperty('role')
   ) {
     if (
       [fullName, phoneNumber, email, password].some((field) => field === '')

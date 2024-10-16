@@ -81,6 +81,7 @@ userSchema.methods.generateAccessToken = async function () {
       id: this._id,
       email: this.email,
       fullName: this.fullName,
+      role: this.role
     },
     accessTokenSecret,
     { expiresIn: accessTokenExpires }
@@ -93,6 +94,7 @@ userSchema.methods.generateRefreshToken = async function () {
       id: this._id,
       email: this.email,
       fullName: this.fullName,
+      role: this.role
     },
     refreshTokenSecret,
     { expiresIn: refreshTokenExpires }

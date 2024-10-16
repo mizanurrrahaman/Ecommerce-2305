@@ -27,7 +27,9 @@ export default app
 
 
 
+//murad14146
 
+//UVIwc5XQYbASnGW9
 
 
 
@@ -42,4 +44,12 @@ export default app
     
     export default app
 
-*/}
+*/}//mongodb+srv://muradchowdhury0077:3ViRoJhFXTa469F2@cluster0.5epwl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
+//mongodb+srv://muradchowdhury0077:3ViRoJhFXTa469F2@cluster0.5epwl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
+
+
+//mongodb+srv://murad14146:UVIwc5XQYbASnGW9@cluster0.aikb4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0

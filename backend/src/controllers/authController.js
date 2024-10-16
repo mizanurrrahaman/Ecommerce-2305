@@ -30,19 +30,23 @@ const loginUser = async (req, res) => {
 
     // check password is right or wrong
     const isPasswordCorrect = await userFound.correctPassword(password)
+    console.log(isPasswordCorrect)
     if (!isPasswordCorrect) {
       return res.status(404).json(apiResponse(404, 'wrong email and password'))
     }
-
+    if(!userFound.emailVerified){
+      return res.send("email not verified, please check your mail box")
+    }
     // generate access and refresh token
     const { accessToken, refreshToken } = await generateTokens(userFound._id)
-    return res
-      .status(200)
-      .json(
-        apiResponse(200, 'login succcessful', {
-          token: { refreshToken: refreshToken, accessToken: accessToken },
-        })
-      )
+     return res.json(apiResponse(200, "login succcessful", {accessToken: accessToken, refreshToken: refreshToken}))
+    // return res
+    //   .status(200)
+  //   .json(
+    //     apiResponse(200, 'login succcessful', {
+    //       token: { refreshToken: refreshToken, accessToken: accessToken },
+    //     })
+    //   )
   } catch (error) {
     return res
       .status(500)
@@ -181,3 +185,7 @@ const updatePassword = async (req, res) => {
 }
 
 export { loginUser, emailVerification, forgotPassword, resetPassword, updatePassword }
+
+//m89260268
+//c6C2tS8P9O3gdyz8
+//c6C2tS8P9O3gdyz8

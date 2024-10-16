@@ -1,3 +1,42 @@
+import jwt from "jsonwebtoken"
+import User from '../models/userModel.js'
+
+
+
+export const protectAuth = async (req, res, next) =>{
+  try{
+    const token = req.header("Authorization")?.replace("Murad"," ")
+    //console.log(token);
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function (err, result) {
+       if(err){
+        return null
+       } else {
+        return result
+       }
+    })
+
+    console.log("assaa", decodedToken);
+
+    if(!decodedToken){
+      return res.json("invalid token")
+    }
+     const user = await User.findById(decodedToken.id)
+
+       if(!user){
+         return res.json("invalid token")
+       }
+       req.user = user 
+         next()
+  } catch(error){
+    console.log("auth", error)
+  }
+
+}
+
+
+ 
+
+{/*
 import jwt from 'jsonwebtoken'
 import { accessTokenSecret } from '../config/index.js'
 import apiResponse from 'quick-response'
@@ -38,3 +77,10 @@ const protectAuth = async (req, res, next) => {
 }
 
 export default protectAuth
+
+*/}
+
+
+
+
+
