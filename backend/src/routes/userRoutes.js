@@ -27,9 +27,6 @@ router.route('/').get(getUsers).post(createUserVaidation, createUser)
 router.route('/:link').get(emailVerification)
 router.route('/logout').post( protectAuth,logout)
 router.route('/update-user').post(protectAuth, upload.single('profileImage'), updateUser)
-router.route("/categories/create").post(protectAuth,adminAuth, (req, res) =>{
-  res.send("created")
-})
 router.route('/login').post(loginUser)
 
 //router

@@ -9,13 +9,13 @@ import { unlinkSync } from 'fs'
         api_secret: 'CBFCJO4RC3ySOwE2YVWJiSRUpCo' // Click 'View API Keys' above to copy your API secret
     });
 
-   export  const cloudinaryUpload = async (path, public_id, folder) =>{
+   export  const cloudinaryUpload = async (path, publicId, folder) =>{
         let uploadResult;
         try{
           // Upload an image
            uploadResult = await cloudinary.uploader
            .upload( path, {
-                   public_id,
+                   publicId,
                    folder
                });
            unlinkSync(path)
@@ -27,19 +27,21 @@ import { unlinkSync } from 'fs'
       
       
       // Optimize delivery by resizing and applying auto-format and auto-quality
-      const optimizeUrl = cloudinary.url( uploadResult.public_id, {
+      const optimizeUrl = cloudinary.url( uploadResult.publicId, {
           fetch_format: 'auto',
           quality: 'auto',
       });
       
       
       // Transform the image: auto-crop to square aspect_ratio
-      const autoCropUrl = cloudinary.url( uploadResult.public_id, {
+      const autoCropUrl = cloudinary.url( uploadResult.publicId, {
           crop: 'auto',
           gravity: 'auto',
           width: 500,
           height: 500,
       });
+
+     
       
       return { optimizeUrl, autoCropUrl, uploadResult }   
 

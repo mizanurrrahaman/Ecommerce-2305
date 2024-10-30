@@ -67,7 +67,9 @@ const emailVerification = async (req, res) => {
     if (token) {
       const userFound = await User.findOne({ email: token.email })
       if (userFound) {
-        userFound.emailVerified = new Date().toDateString()
+        userFound.emailVerification = Date().toDateString()
+        // userFound.emailVerified = new Date().toDateString()
+       // userFound.emailVerified = Date.now()
         await userFound.save()
         confirmEmailMessage = 'Your email has been verified!'
         return res.render('index', { confirmEmailMessage })

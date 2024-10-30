@@ -19,4 +19,4 @@ const subCategotyModel = new Schema({
     }
 }, {timestamps: true})
 
-export const SubCategoty = mongoose.model("Subcategory", subCategotyModel)
+export const SubCategoty = mongoose.model("SubCategory", subCategotyModel)

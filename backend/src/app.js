@@ -3,6 +3,9 @@ import { fileURLToPath } from 'url'
 import express from 'express'
 import cors from 'cors'
 import userRouter from './routes/userRoutes.js'
+import categoryRouter from './routes/categoryRoutes.js'
+import subCategoryRouter from './routes/subCategoryRoutes.js'
+import productRouter from './routes/productRoutes.js'
 
 // convert `import.meta.url` to __dirname
 const __filename = fileURLToPath(import.meta.url)
@@ -22,6 +25,9 @@ app.set('views', path.join(__dirname, 'views'))
 
 // all routes
 app.use('/api/v1/users/', userRouter)
+app.use('/api/v1/categories/', categoryRouter)
+app.use('/api/v1/subcategories/', subCategoryRouter)
+app.use('/api/v1/products/', productRouter)
 
 export default app
 
