@@ -1,7 +1,13 @@
+import apiResponse from "quick-response"
+import { Variation } from "../models/variationModel.js"
+
 const createVariation = async (req, res) => {
 
     try{
-
+      const { name } = req.body
+      const variation = await Variation.create({ name })
+      return res.json(apiResponse(201, "variation created ", { variation }))
+      console.log(variation)
     } catch (error){
 
     }

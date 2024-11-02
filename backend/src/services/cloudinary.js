@@ -24,17 +24,17 @@ import { unlinkSync } from 'fs'
              console.error("Upload error", error)
              return {error: "Upload failed", uploadResult: null}
          };
-      
+      //console.log(uploadResult)
       
       // Optimize delivery by resizing and applying auto-format and auto-quality
-      const optimizeUrl = cloudinary.url( uploadResult.publicId, {
+      const optimizeUrl = cloudinary.url( uploadResult.public_id, {
           fetch_format: 'auto',
           quality: 'auto',
       });
       
       
       // Transform the image: auto-crop to square aspect_ratio
-      const autoCropUrl = cloudinary.url( uploadResult.publicId, {
+      const autoCropUrl = cloudinary.url( uploadResult.public_id, {
           crop: 'auto',
           gravity: 'auto',
           width: 500,
