@@ -30,7 +30,7 @@ router.route('/update-user').post(protectAuth, upload.single('profileImage'), up
 router.route('/login').post(loginUser)
 
 //router
-  //.route('/update-user')
+  //.route('/update-user')                         
   //.post(protectAuth, upload.single('profileImage'), updateUser)
 router.route('/forgot-password').post(forgotPassword)
 router.route('/reset-password/:token').patch(resetPassword)

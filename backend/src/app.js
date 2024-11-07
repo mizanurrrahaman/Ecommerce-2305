@@ -7,6 +7,7 @@ import categoryRouter from './routes/categoryRoutes.js'
 import subCategoryRouter from './routes/subCategoryRoutes.js'
 import productRouter from './routes/productRoutes.js'
 import variationRouter from './routes/variation.route.js'
+import inventoryRouter from './routes/inventoryRoutes.js'
 
 // convert `import.meta.url` to __dirname
 const __filename = fileURLToPath(import.meta.url)
@@ -30,6 +31,7 @@ app.use('/api/v1/categories/', categoryRouter)
 app.use('/api/v1/subcategories/', subCategoryRouter)
 app.use('/api/v1/products/', productRouter)
 app.use('/api/v1/variation/', variationRouter)
+app.use('/api/v1/inventories/', inventoryRouter)
 
 export default app
 
