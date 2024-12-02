@@ -23,14 +23,21 @@ import { Category } from "../models/categoryModel.js"
   }
 }
 
-const allCategoryCreate = async (req, res) =>{
-   try {
-     const data = await Category.find().populate("category")
-    
-     return res.json(apiResponse(200, "all categories", { data }))
-   } catch (error) {
-    console.log("kasvfgi", error)
-   }
+
+
+const getCategry = async (_, res)=>{
+  const categories = await Category.find();
+  return res.json(apiResponse(200, "categories", categories))
 }
 
-export {categoryCreate, allCategoryCreate}
+// const allCategoryCreate = async (req, res) =>{
+//    try {
+//      const data = await Category.find().populate("category")
+    
+//      return res.json(apiResponse(200, "all categories", { data }))
+//    } catch (error) {
+//     console.log("kasvfgi", error)
+//    }
+// }
+
+export {categoryCreate, getCategry }

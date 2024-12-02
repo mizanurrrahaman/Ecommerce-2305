@@ -15,7 +15,7 @@ const getUsers = (req, res) => {
 // route POST /api/v1/users
 const createUser = async (req, res) => {
   try {
-    const { fullName, phoneNumber, email, password } = req.body
+    const { fullName, phoneNumber, email, password,role } = req.body
 
     // check user already registered or not
     const isUserFound = await User.findOne({ email })
@@ -25,12 +25,25 @@ const createUser = async (req, res) => {
         .json(apiResponse(400, 'email already exist', { isUserFound }))
     }
 
-    const user = await User.create({
-      fullName,
-      phoneNumber,
-      email,
-      password,
-    })
+    let user 
+    if(role){
+      user = await User.create({
+       fullName,
+       phoneNumber,
+       email,
+       password,
+       role
+     })
+
+    } else{
+       user = await User.create({
+        fullName,
+        phoneNumber,
+        email,
+        password,
+        role
+      })
+    }
 
     let link = await user.generateAccessToken()
 
@@ -80,11 +93,20 @@ const logout = async (req, res) =>{
   }
 }
 
+const getUser = async (req, res) =>{
+  try {
+    const { id } = req.params
+    const user = await User.findById({_id: id}).select("-password -refreshToken")
+    return res.json(apiResponse(200, "user details", user))
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 
 
-export { createUser, getUsers, updateUser, logout }
+export { createUser, getUsers, updateUser, logout, getUser }
 
 
 

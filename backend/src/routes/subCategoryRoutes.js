@@ -5,7 +5,7 @@ import { allSubCategories, subCategoryCreate } from '../controllers/subCategory.
 
 const router = e.Router()
 
-router.route("/create").post(protectAuth,adminAuth,  subCategoryCreate)
+router.route("/subcategories/create").post(protectAuth,adminAuth,  subCategoryCreate)
 router.route("/").get(allSubCategories)
 
 export default router

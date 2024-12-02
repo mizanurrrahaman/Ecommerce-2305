@@ -20,26 +20,34 @@ const generateTokens = async (id) => {
 // @desc:  login user
 // @route: POST api/v1/login
 const loginUser = async (req, res) => {
-  const { email, password } = req.body
   try {
+    const { email, password } = req.body
     // check user exist or not
+     if(req.body.hasOwnProperty("email") && req.body.hasOwnProperty("password")){
+        if([email, password].some((field) => field === " ")){
+          return res.json(apiResponse(401, "all fields are required"))
+        }
+     } else{
+       return res.json(apiResponse(401, "all fiels are required"))
+     }
+
     const userFound = await User.findOne({ email })
     if (!userFound) {
-      return res.status(404).json(apiResponse(404, 'user not found'))
+      return res.json(apiResponse(500, 'user not found'))
     }
-
     // check password is right or wrong
     const isPasswordCorrect = await userFound.correctPassword(password)
-    console.log(isPasswordCorrect)
+    //console.log(isPasswordCorrect)
     if (!isPasswordCorrect) {
-      return res.status(404).json(apiResponse(404, 'wrong email and password'))
+      return res.json(apiResponse(500, 'wrong email and password'))
     }
     if(!userFound.emailVerified){
-      return res.send("email not verified, please check your mail box")
+      return res.json(apiResponse(500,"email not verified, please check your mail box"))
     }
     // generate access and refresh token
+    const user = await User.findById({ _id: userFound._id}).select("-password")
     const { accessToken, refreshToken } = await generateTokens(userFound._id)
-     return res.json(apiResponse(200, "login succcessful", {accessToken: accessToken, refreshToken: refreshToken}))
+     return res.json(apiResponse(200, "login succcessful", {user,accessToken: accessToken, refreshToken: refreshToken}))
     // return res
     //   .status(200)
   //   .json(
